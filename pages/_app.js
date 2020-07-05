@@ -18,6 +18,7 @@ const client = new ApolloClient({
 class MyApp extends App {
     render() {
         const { Component, pageProps } = this.props;
+        const config = { apiKey: API_KEY, shopOrigin: Cookies.get('shopOrigin'), forceRedirect: true }
 
         return (
             <React.Fragment>
@@ -25,9 +26,11 @@ class MyApp extends App {
                     <title>Sample App</title>
                     <meta charSet="utf-8" />
                 </Head>
-                <AppProvider i18n={translations}>
-                    <Component {...pageProps} />
-                </AppProvider>
+                <Provider config={config}>
+                    <AppProvider i18n={translations}>
+                        <Component {...pageProps} />
+                    </AppProvider>
+                </Provider>
             </React.Fragment>
         );
     }
