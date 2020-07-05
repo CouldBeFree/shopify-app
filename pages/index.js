@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import { EmptyState, Layout, Page } from '@shopify/polaris';
 import { ResourcePicker } from '@shopify/app-bridge-react';
+import store from 'store-js';
 
 function Index() {
     const [modal, setModal] = useState({ open: false });
+    const emptyState = !store.get('ids');
+
+    function handleSelection(resources) {
+        const idsFromResources = resources.selection.map((product) => product.id);
+        setModal({ open: false });
+        store.set('ids', idsFromResources);
+        console.info('ids', store.get('ids'));
+    }
 
     return (
         <Page>
@@ -12,6 +21,7 @@ function Index() {
                 showVariants={false}
                 open={modal.open}
                 onCancel={() => setModal({ open: false })}
+                onSelection={(resources) => handleSelection(resources)}
             />
             <Layout>
                 <EmptyState
