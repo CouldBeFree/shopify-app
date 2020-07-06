@@ -28,7 +28,9 @@ class MyApp extends App {
                 </Head>
                 <Provider config={config}>
                     <AppProvider i18n={translations}>
-                        <Component {...pageProps} />
+                        <ApolloProvider client={client}>
+                            <Component {...pageProps} />
+                        </ApolloProvider>
                     </AppProvider>
                 </Provider>
             </React.Fragment>
